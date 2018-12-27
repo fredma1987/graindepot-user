@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhoubi.graindepot.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.zhoubi.graindepot.entity.User">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="USERNAME" property="username" jdbcType="VARCHAR"/>
+        <result column="PASSWORD" property="password" jdbcType="VARCHAR"/>
+    </resultMap>
+    <select id="updateUser" parameterType="Map" resultType="Integer">
+        UPDATE m_user set
+        username=#{username}
+        where id=#{where_id}
+    </select>
+</mapper>
