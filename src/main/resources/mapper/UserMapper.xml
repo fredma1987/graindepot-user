@@ -14,4 +14,13 @@
         username=#{username}
         where id=#{where_id}
     </select>
+
+    <select id="listUser" resultType="UserBean">
+        select * from m_user
+    </select>
+    <!--通过用户名获取当前用户，在session里面添加登录用户信息，登录专用-->
+    <select id="userByUsername" parameterType="String" resultType="UserBean">
+        select * from m_user
+        where 1=1 and username=#{username}
+    </select>
 </mapper>

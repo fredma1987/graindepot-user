@@ -1,12 +1,18 @@
 package com.zhoubi.graindepot.mapper;
 
+import com.zhoubi.graindepot.bean.UserBean;
 import com.zhoubi.graindepot.entity.User;
-import org.apache.ibatis.annotations.Param;
-import tk.mybatis.mapper.common.Mapper;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2018-12-5.
  */
-public interface UserMapper extends Mapper<User> {
-    User getUserById(@Param("id") Integer id);
+public interface UserMapper {
+    List listUser();
+
+    // UserBean selectOneByMap(Map map);
+    //获取当前的登录用户
+    UserBean userByUsername(String username);
 }

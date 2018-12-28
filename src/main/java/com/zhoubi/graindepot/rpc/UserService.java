@@ -1,6 +1,8 @@
 package com.zhoubi.graindepot.rpc;
 
 
+import com.alibaba.fastjson.JSON;
+import com.zhoubi.graindepot.bean.UserBean;
 import com.zhoubi.graindepot.biz.UserBiz;
 import com.zhoubi.graindepot.controller.BaseController;
 import com.zhoubi.graindepot.entity.User;
@@ -10,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * ${DESCRIPTION}
  *
@@ -18,18 +22,22 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping("api")
-public class UserService extends BaseController<UserBiz, User> {
+public class UserService {
     @Autowired
     private UserBiz userBiz;
 
     @RequestMapping(value = "/user/username/{username}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public UserInfo getUserByUsername(@PathVariable("username") String username) {
-        UserInfo info = new UserInfo();
-        User user = userBiz.getUserByUsername(username);
+    public UserBean getUserByUsername(@PathVariable("username") String username) {
+        UserBean user = userBiz.getUserByUsername(username);
+        return user;
+    }
 
-        BeanUtils.copyProperties(user, info);
-        info.setId(user.getId());
-        return info;
+    @RequestMapping(value = "/feignTest", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public String feignTest(HttpSession session) {
+        UserBean user=(UserBean)session.getAttribute("currentUser");
+        return "hello world feign:"+session.getId()+"  "
+                +session.getAttribute("test")+"  "+ JSON.toJSONString(user);
     }
 }
