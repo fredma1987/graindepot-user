@@ -27,7 +27,7 @@ import java.util.Map;
  * Created by zhanghao on 2018/12/28.
  */
 @Controller
-public class TestController {
+public class DemoController {
     @Autowired
     private UserMapper userMapper;
 
@@ -52,7 +52,7 @@ public class TestController {
 
     @GetMapping("table")
     public String table(){
-        return "table";
+        return "/demo/table";
     }
     @GetMapping("table2")
     public String table2(){
