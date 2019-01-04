@@ -23,4 +23,25 @@
         select * from base_user
         where 1=1 and username=#{username}
     </select>
+    <sql id="page_template">
+        <if test="orders != null">
+            order by
+            <foreach collection="orders" item="order" separator=",">
+                ${order}
+            </foreach>
+        </if>
+        limit #{offset},#{pageSize}
+    </sql>
+    <select id="selectPageList" parameterType="Map" resultType="UserBean">
+        select * from m_user
+        where 1=1
+        <if test="username!=null">and username like #{username}</if>
+        <include refid="page_template"/>
+    </select>
+
+    <select id="selectPageCount" parameterType="Map" resultType="int">
+        select count(*) from m_user t where 1=1
+        <if test="username!=null">and username like #{username}</if>
+    </select>
+
 </mapper>
