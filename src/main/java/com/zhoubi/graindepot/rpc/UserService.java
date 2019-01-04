@@ -33,11 +33,4 @@ public class UserService {
         return user;
     }
 
-    @RequestMapping(value = "/feignTest", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public String feignTest(HttpSession session) {
-        UserBean user=(UserBean)session.getAttribute("currentUser");
-        return "hello world feign:"+session.getId()+"  "
-                +session.getAttribute("test")+"  "+ JSON.toJSONString(user);
-    }
 }

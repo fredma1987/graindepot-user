@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,4 +29,13 @@ public class UserBiz {
     public UserBean getUserByUsername(String username) {
         return userMapper.userByUsername(username);
     }
+
+    public List<UserBean> selectPageList(Map map){
+        return userMapper.selectPageList(map);
+    }
+
+    public Integer selectPageCount(Map map){
+        return userMapper.selectPageCount(map);
+    }
+
 }
