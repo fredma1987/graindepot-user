@@ -2,18 +2,18 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="head::head(${title})">
 </head>
-<link rel="stylesheet" href="assets/css/bootstrapValidator.css"/>
-<script type="text/javascript" src="assets/js/validator/bootstrapValidator.min.js"></script>
-<script type="text/javascript" src="assets/js/validator/bootstrapValidator.zh_CN.js"></script>
+<link rel="stylesheet" th:href="@{/assets/css/bootstrapValidator.css}"/>
+<script type="text/javascript" th:src="@{/assets/js/validator/bootstrapValidator.min.js}"></script>
+<script type="text/javascript" th:src="@{/assets/js/validator/bootstrapValidator.zh_CN.js}"></script>
 
-<link href="assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-<script type="text/javascript" src="assets/js/datetimepicker/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-<script type="text/javascript" src="assets/js/datetimepicker/bootstrap-datetimepicker.zh-CN.js"
+<link th:href="@{/assets/css/bootstrap-datetimepicker.min.css}" rel="stylesheet" media="screen">
+<script type="text/javascript" th:src="@{/assets/js/datetimepicker/bootstrap-datetimepicker.js}" charset="UTF-8"></script>
+<script type="text/javascript" th:src="@{/assets/js/datetimepicker/bootstrap-datetimepicker.zh-CN.js}"
         charset="UTF-8"></script>
 
-<link href="assets/css/select/bootstrap-select.min.css" rel="stylesheet" media="screen">
-<script src="assets/js/select/bootstrap-select.js"></script>
-<script src="assets/js/select/defaults-zh_CN.js"></script>
+<link th:href="@{/assets/css/select/bootstrap-select.min.css}" rel="stylesheet" media="screen">
+<script th:src="@{/assets/js/select/bootstrap-select.js}"></script>
+<script th:src="@{/assets/js/select/defaults-zh_CN.js}"></script>
 
 
 <body style="overflow-x: hidden">
@@ -23,33 +23,49 @@
 
         <div class="col-sm-4">
             <input type="text" name="username"  id="form-field-1" class="form-control"
-                   data-bv-notempty
+                   data-bv-notempty  th:value="${item.username}"
                    placeholder="用户名"/>
         </div>
-        <!--<label class="col-sm-1 control-label no-padding-right" for="form-field-3"> 用户名: </label>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label no-padding-right" for="form-field-2"> 真实姓名: </label>
 
         <div class="col-sm-4">
-            <input type="text" name="username" id="form-field-3"  class="form-control"
-                   placeholder="用户名" />
+            <input type="text" name="relname"  id="form-field-2" class="form-control"
+                   data-bv-notempty th:value="${item.relname}"
+                   placeholder="真实姓名"/>
         </div>
--->
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label no-padding-right" for="birthdayStr"> 生日: </label>
+
+        <div class="col-sm-4">
+            <input size="16" type="text" name="birthdayStr" id="birthdayStr"
+                   th:value="${item.birthdayStr}"
+                   readonly class="form_date form-control">
+        </div>
     </div>
 
     <div class="form-group">
-        <label class="col-sm-4 control-label no-padding-right" for="form-field-2"> 密码: </label>
+        <label class="col-sm-4 control-label no-padding-right" for="password">
+            <span class="red">*</span>
+            密码:
+        </label>
 
         <div class="col-sm-4">
-            <input type="password" id="form-field-2" name="password"
-                   placeholder="密码" class="form-control"/>
-            <!--<span class="help-inline col-xs-2 col-sm-5">
+            <input type="password" id="password" name="password"
+                   placeholder="密码" class="col-sm-10 form-control"/>
+           <!-- <span class="help-inline col-sm-2">
 			    <span class="middle red">*不能为空</span>
             </span>-->
         </div>
-        <label class="col-sm-2 no-padding-left red"> *不能为空 </label>
+        <!--<div class="col-sm-1">
+            <span class="icon-question-sign bigger-130 center" data-toggle="tooltip" title="必填"></span>
+        </div>-->
+
     </div>
 
-
-    <div class="form-group">
+    <!--<div class="form-group">
         <label class="col-sm-4 control-label no-padding-right" for="form-field-3"> 日期时间: </label>
 
         <div class="col-sm-4">
@@ -74,7 +90,7 @@
             <select  id="form-field-5" name="city"  class="form-control"  >
             </select>
         </div>
-    </div>
+    </div>-->
 
     <div class="form-group">
         <div class="col-md-6 center">
@@ -84,7 +100,7 @@
             </button>
             &nbsp; &nbsp; &nbsp;
             <button class="btn" type="button" onclick="toBack()">
-                <i class="icon-undo bigger-110"></i>
+                <i class="icon-arrow-left bigger-110"></i>
                 返回
             </button>
         </div>
@@ -96,6 +112,7 @@
 </html>
 <script>
     $(function () {
+        $("[data-toggle='tooltip']").tooltip();
         $(".form_datetime").bootstrapDatetime();
         $(".form_date").bootstrapDate();
         $('#validation-form').bootstrapValidator({
@@ -119,13 +136,13 @@
             valueField: 'id',
             textField: 'username',
             onSelect: function (value, item) {
-               /* $("#userid").bootstrapSelect({
-                    url: '/userById',
-                    type: 'GET',
-                    valueField: 'id',
-                    textField: 'username',
-                    param: {id: value}
-                });*/
+                /* $("#userid").bootstrapSelect({
+                 url: '/userById',
+                 type: 'GET',
+                 valueField: 'id',
+                 textField: 'username',
+                 param: {id: value}
+                 });*/
             },
             onLoadSuccess: function (item,data) {
             }

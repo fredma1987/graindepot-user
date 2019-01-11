@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="head::head(${title})">
+</head>
+<body>
+<form class="form-horizontal" role="form" id="validation-form" method="get">
+    <div class="form-group">
+        <label class="col-sm-1 control-label no-padding-right" for="form-field-1"> 用户名: </label>
+        <label class="col-sm-2" id="form-field-1" th:text="${item.username}"> 用户名 </label>
+        <label class="col-sm-2 control-label no-padding-right" for="form-field-2"> 真实姓名: </label>
+        <label class="col-sm-2" id="form-field-2" th:text="${item.relname}"> 真实姓名 </label>
+        <label class="col-sm-1 control-label no-padding-right" for="form-field-3"> 生日: </label>
+        <label class="col-sm-3" id="form-field-3" th:text="${item.birthdayStr}"> 生日 </label>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-1 control-label no-padding-right" for="form-field-4"> 地址: </label>
+        <label class="col-sm-2" id="form-field-4" th:text="${item.address}"> 地址 </label>
+        <label class="col-sm-2 control-label no-padding-right" for="form-field-5"> email: </label>
+        <label class="col-sm-2" id="form-field-5" th:text="${item.email}"> email </label>
+        <label class="col-sm-1 control-label no-padding-right" for="form-field-6"> 性别: </label>
+        <label class="col-sm-3" id="form-field-6" th:text="${item.sex}"> 性别 </label>
+    </div>
+</form>
+
+<div class="profile-user-info profile-user-info-striped">
+    <div class="profile-info-row">
+        <div class="profile-info-name"> Username </div>
+
+        <div class="profile-info-value">
+            <span class="editable" id="username">alexdoe</span>
+        </div>
+        <div class="profile-info-name"> Username </div>
+    </div>
+
+    <div class="profile-info-row">
+        <div class="profile-info-name"> Location </div>
+
+        <div class="profile-info-value">
+            <i class="icon-map-marker light-orange bigger-110"></i>
+            <span class="editable" id="country">Netherlands</span>
+            <span class="editable" id="city">Amsterdam</span>
+        </div>
+    </div>
+
+    <div class="profile-info-row">
+        <div class="profile-info-name"> Age </div>
+
+        <div class="profile-info-value">
+            <span class="editable" id="age">38</span>
+        </div>
+    </div>
+
+    <div class="profile-info-row">
+        <div class="profile-info-name"> Joined </div>
+
+        <div class="profile-info-value">
+            <span class="editable" id="signup">20/06/2010</span>
+        </div>
+    </div>
+
+    <div class="profile-info-row">
+        <div class="profile-info-name"> Last Online </div>
+
+        <div class="profile-info-value">
+            <span class="editable" id="login">3 hours ago</span>
+        </div>
+    </div>
+
+    <div class="profile-info-row">
+        <div class="profile-info-name"> About Me </div>
+
+        <div class="profile-info-value">
+            <span class="editable" id="about">Editable as WYSIWYG</span>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
