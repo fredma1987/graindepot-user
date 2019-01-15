@@ -1,5 +1,6 @@
 package com.zhoubi.graindepot.biz;
 
+import com.zhoubi.graindepot.bean.BaseUser;
 import com.zhoubi.graindepot.bean.UserBean;
 import com.zhoubi.graindepot.constant.UserConstant;
 import com.zhoubi.graindepot.entity.User;
@@ -26,7 +27,7 @@ public class UserBiz {
      * @param username
      * @return
      */
-    public UserBean getUserByUsername(String username) {
+    public BaseUser getUserByUsername(String username) {
         return userMapper.userByUsername(username);
     }
 

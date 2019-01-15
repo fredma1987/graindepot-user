@@ -1,6 +1,7 @@
 package com.zhoubi.graindepot.controller;
 
 import com.zhoubi.graindepot.bean.BaseUser;
+import com.zhoubi.graindepot.bean.UserBean;
 import com.zhoubi.graindepot.biz.BaseUserBiz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,12 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("page")
-public class PageController {
+public class PageController extends BaseController {
     @Autowired
     private BaseUserBiz baseUserBiz;
 
     @GetMapping("/user")
     public String toUser(Model model) {
+        BaseUser currentUser = getCurrentUser();
         String title = "用户列表";
         model.addAttribute("title", title);
         String path = "/user/list";
@@ -37,7 +39,7 @@ public class PageController {
     }
 
     @GetMapping("/user/edit")
-    public String toEdit(Model model,Integer id) {
+    public String toEdit(Model model, Integer id) {
         String title = "编辑用户";
         BaseUser baseUser = new BaseUser();
         if (id != null) {
@@ -45,6 +47,7 @@ public class PageController {
         }
         model.addAttribute("title", title);
         model.addAttribute("item", baseUser);
+        model.addAttribute("id", id);
         String path = "/user/edit";
         return path;
     }

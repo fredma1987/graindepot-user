@@ -2,76 +2,126 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:include="head::head(${title})">
 </head>
+<link rel="stylesheet" th:href="@{/assets/css/comm/userinfo.css}"/>
 <body>
-<form class="form-horizontal" role="form" id="validation-form" method="get">
-    <div class="form-group">
-        <label class="col-sm-1 control-label no-padding-right" for="form-field-1"> 用户名: </label>
-        <label class="col-sm-2" id="form-field-1" th:text="${item.username}"> 用户名 </label>
-        <label class="col-sm-2 control-label no-padding-right" for="form-field-2"> 真实姓名: </label>
-        <label class="col-sm-2" id="form-field-2" th:text="${item.relname}"> 真实姓名 </label>
-        <label class="col-sm-1 control-label no-padding-right" for="form-field-3"> 生日: </label>
-        <label class="col-sm-3" id="form-field-3" th:text="${item.birthdayStr}"> 生日 </label>
-    </div>
-
-    <div class="form-group">
-        <label class="col-sm-1 control-label no-padding-right" for="form-field-4"> 地址: </label>
-        <label class="col-sm-2" id="form-field-4" th:text="${item.address}"> 地址 </label>
-        <label class="col-sm-2 control-label no-padding-right" for="form-field-5"> email: </label>
-        <label class="col-sm-2" id="form-field-5" th:text="${item.email}"> email </label>
-        <label class="col-sm-1 control-label no-padding-right" for="form-field-6"> 性别: </label>
-        <label class="col-sm-3" id="form-field-6" th:text="${item.sex}"> 性别 </label>
-    </div>
-</form>
-
-<div class="profile-user-info profile-user-info-striped">
-    <div class="profile-info-row">
-        <div class="profile-info-name"> Username </div>
-
-        <div class="profile-info-value">
-            <span class="editable" id="username">alexdoe</span>
+<div class="infoDiv">
+    <div class="userInfoDiv">
+        <div class="leftUserDiv">
+            <div class="userHeadPic">
+                <img th:src="@{/assets/avatars/profile-pic.jpg}"/>
+            </div>
+            <table class="userTable" border="" cellspacing="" cellpadding="">
+                <tr>
+                    <td class="infoTitle">实名</td>
+                    <td class="infoShow"
+                        th:text="${item.relname}">张浩
+                    </td>
+                </tr>
+                <tr>
+                    <td class="infoTitle">生日</td>
+                    <td class="infoShow"
+                        th:text="${#dates.format(item.birthday,'yyyy-MM-dd')}">2019.1.1
+                    </td>
+                </tr>
+                <tr>
+                    <td class="infoTitle">性别</td>
+                    <td class="infoShow" th:text="${item.sex}">男</td>
+                </tr>
+                <tr>
+                    <td class="infoTitle">邮箱</td>
+                    <td class="infoShow" th:text="${item.email}">666666666@qq.com</td>
+                </tr>
+                <tr>
+                    <td class="infoTitle">电话号码</td>
+                    <td class="infoShow" th:text="${item.telphone}">18822222222</td>
+                </tr>
+            </table>
         </div>
-        <div class="profile-info-name"> Username </div>
-    </div>
+        <div class="rightUserDiv">
+            <table class="userTable" border="" cellspacing="" cellpadding="">
+                <tr>
+                    <td class="infoTitle">登录名称</td>
+                    <td class="infoShow" th:text="${item.username}">张小浩</td>
+                </tr>
+                <tr>
+                    <td class="infoTitle">用户级别</td>
+                    <td class="infoShow" th:text="${item.userlevel}">国家</td>
+                </tr>
+                <tr>
+                    <td class="infoTitle">当前积分</td>
+                    <td class="infoShow" th:text="${item.integration}">123456</td>
+                </tr>
+                <tr>
+                    <td class="infoTitle">联系地址</td>
+                    <td class="infoShow" th:text="${item.address}">无锡市梁溪区</td>
+                </tr>
+                <tr>
+                    <td class="infoTitle">QQ号</td>
+                    <td class="infoShow" th:text="${item.qq}">666666666</td>
+                </tr>
+                <tr>
+                    <td class="infoTitle">微信号</td>
+                    <td class="infoShow" th:text="${item.wechat}">张小浩666</td>
+                </tr>
+                <tr>
+                    <td class="infoTitle">支付宝账号</td>
+                    <td class="infoShow" th:text="${item.alipay}">18822222222</td>
+                </tr>
+                <tr>
+                    <td class="infoTitle">认证状态</td>
+                    <td class="infoShow" th:text="${item.status}">已认证</td>
+                </tr>
+                <tr>
+                    <td class="infoTitle">错误密码次数</td>
+                    <td class="infoShow" th:text="${item.wrongpass}">0</td>
+                </tr>
+            </table>
+            <table class="userTable" border="" cellspacing="" cellpadding="">
 
-    <div class="profile-info-row">
-        <div class="profile-info-name"> Location </div>
-
-        <div class="profile-info-value">
-            <i class="icon-map-marker light-orange bigger-110"></i>
-            <span class="editable" id="country">Netherlands</span>
-            <span class="editable" id="city">Amsterdam</span>
-        </div>
-    </div>
-
-    <div class="profile-info-row">
-        <div class="profile-info-name"> Age </div>
-
-        <div class="profile-info-value">
-            <span class="editable" id="age">38</span>
-        </div>
-    </div>
-
-    <div class="profile-info-row">
-        <div class="profile-info-name"> Joined </div>
-
-        <div class="profile-info-value">
-            <span class="editable" id="signup">20/06/2010</span>
-        </div>
-    </div>
-
-    <div class="profile-info-row">
-        <div class="profile-info-name"> Last Online </div>
-
-        <div class="profile-info-value">
-            <span class="editable" id="login">3 hours ago</span>
-        </div>
-    </div>
-
-    <div class="profile-info-row">
-        <div class="profile-info-name"> About Me </div>
-
-        <div class="profile-info-value">
-            <span class="editable" id="about">Editable as WYSIWYG</span>
+                <tr>
+                    <td class="infoTitle">省ID</td>
+                    <td class="infoShow" th:text="${item.provinceid}">111111</td>
+                </tr>
+                <tr>
+                    <td class="infoTitle">市ID</td>
+                    <td class="infoShow" th:text="${item.cityid}">222222</td>
+                </tr>
+                <tr>
+                    <td class="infoTitle">区县ID</td>
+                    <td class="infoShow" th:text="${item.countyid}">333333</td>
+                </tr>
+                <tr>
+                    <td class="infoTitle">集团ID</td>
+                    <td class="infoShow" th:text="${item.groupid}">444444</td>
+                </tr>
+                <tr>
+                    <td class="infoTitle">企业ID</td>
+                    <td class="infoShow" th:text="${item.companyid}">555555</td>
+                </tr>
+                <tr>
+                    <td class="infoTitle">库点ID</td>
+                    <td class="infoShow" th:text="${item.graindepotid}">666666</td>
+                </tr>
+                <tr>
+                    <td class="infoTitle">部门ID</td>
+                    <td class="infoShow" th:text="${item.depid}">777777</td>
+                </tr>
+                <tr>
+                    <td class="infoTitle">创建时间</td>
+                    <td class="infoShow"
+                        th:text="${#dates.format(item.createtime,'yyyy-MM-dd HH:mm')}">2019.1.1</td>
+                </tr>
+                <tr>
+                    <td class="infoTitle">最后登录时间</td>
+                    <td class="infoShow"
+                        th:text="${#dates.format(item.lastlogin,'yyyy-MM-dd HH:mm')}">2019.1.1</td>
+                </tr>
+                <tr>
+                    <td class="infoTitle">最近更新时间</td>
+                    <td class="infoShow"
+                        th:text="${#dates.format(item.updatetime,'yyyy-MM-dd HH:mm')}">2019.1.1</td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>

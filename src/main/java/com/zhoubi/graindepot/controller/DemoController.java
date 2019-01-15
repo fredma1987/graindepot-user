@@ -2,6 +2,7 @@ package com.zhoubi.graindepot.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.zhoubi.graindepot.bean.BaseUser;
 import com.zhoubi.graindepot.bean.UserBean;
 import com.zhoubi.graindepot.entity.User;
 import com.zhoubi.graindepot.mapper.UserMapper;
@@ -48,7 +49,7 @@ public class DemoController {
 
     @GetMapping("one")
     @ResponseBody
-    public UserBean getUserByUsername(String username) {
+    public BaseUser getUserByUsername(String username) {
         return userMapper.userByUsername(username);
     }
 

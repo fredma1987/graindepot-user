@@ -12,11 +12,11 @@
         <ul class="breadcrumb">
             <li>
                 <i class="icon-home home-icon"></i>
-               首页
+                首页
             </li>
             <li>
                 <i class="icon-user home-icon"></i>
-               用户列表
+                用户列表
             </li>
         </ul>
     </div>
@@ -100,7 +100,7 @@
     }
     $(document).ready(function () {
         $("#city").bootstrapSelect({
-            url: '/tableListPost',
+            url: '/graindepot-user/tableListPost',
             type: 'POST',
             valueField: 'id',
             textField: 'username',
@@ -124,11 +124,11 @@
         theTable = $('#myTable').bootstrapTable({
             //数据来源（包括处理分页，排序，过滤） ，即url，action，接口，等等
             ajax: {
-                url: "/user/list/page",
+                url: "/graindepot-user/user/list/page",
                 data: param,
                 type: "GET"
             },
-            sScrollY:510,//表格高度
+            sScrollY: 510,//表格高度
             columns: [
                 {data: "username"},
                 {data: "relname"},
@@ -186,9 +186,6 @@
         theTable.destroy();
         query(getParam());
     }
-    function reload() {
-
-    }
     function getParam() {
         var param = {};
         param.username = $("#username").val();
@@ -208,14 +205,27 @@
 
     function doDel() {
         console.log($('#myTable').bootstrapTable("getChecked"))
+        var checkedList = $('#myTable').bootstrapTable("getChecked");
+        if (checkedList.length==0) {
+            $.bootstrapBox.alert.init({message: "请选择需要删除的行"})
+            return
+        }
         $.bootstrapBox.confirm.init({
             message: "确认删除？",
             callback: function (result) {
                 if (result) {
-                    $.bootstrapBox.alert.init({
-                        message: "删除成功"
-                    });
-                    $("#myTable").bootstrapTable("reload");
+                    //删除用户
+                    debugger
+                    var ids = checkedList.map(function (curr) {
+                        return curr.userid
+                    })
+                    $.post("/graindepot-user/user/del", {ids:ids.join(",")}, function (result) {
+                        $.bootstrapBox.alert.init({
+                            message: result.message
+                        });
+                        $("#myTable").bootstrapTable("reload");
+                    })
+
                 }
 
             }
@@ -226,7 +236,7 @@
     function toAdd() {
         $.bootstrapBox.dialog.init({
             title: "新增用户",
-            url: "/page/user/edit",
+            url: "/graindepot-user/page/user/edit",
             width: '800px',
             height: '600px'
         })
@@ -235,7 +245,7 @@
     function toEdit(id) {
         $.bootstrapBox.dialog.init({
             title: "修改用户",
-            url: "/page/user/edit?id="+id,
+            url: "/graindepot-user/page/user/edit?id=" + id,
             width: '800px',
             height: '600px'
         })
@@ -245,17 +255,17 @@
     function toDetail(userid) {
         $.bootstrapBox.dialog.init({
             title: "用户详情",
-            url: "/page/user/detail/" + userid,
-            width: '800px',
-            height: '600px'
+            url: "/graindepot-user/page/user/detail/" + userid,
+            width: '1500px',
+            height: '630px'
         })
     }
 
 
-    function toSave() {
+    function toSave(result) {
         $.bootstrapBox.dialog.close();
         $.bootstrapBox.alert.init({
-            message: "保存成功"
+            message: result.message
         });
         $("#myTable").bootstrapTable("reload")
     }

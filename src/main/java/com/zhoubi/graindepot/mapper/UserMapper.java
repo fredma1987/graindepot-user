@@ -1,5 +1,6 @@
 package com.zhoubi.graindepot.mapper;
 
+import com.zhoubi.graindepot.bean.BaseUser;
 import com.zhoubi.graindepot.bean.UserBean;
 import com.zhoubi.graindepot.entity.User;
 
@@ -14,7 +15,7 @@ public interface UserMapper {
 
     // UserBean selectOneByMap(Map map);
     //获取当前的登录用户
-    UserBean userByUsername(String username);
+    BaseUser userByUsername(String username);
 
     List<UserBean> selectPageList(Map map);
 
