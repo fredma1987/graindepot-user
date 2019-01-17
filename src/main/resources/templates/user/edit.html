@@ -7,6 +7,8 @@
 <link th:href="@{/assets/css/select/bootstrap-select.min.css}" rel="stylesheet" media="screen">
 <script th:src="@{/assets/js/select/bootstrap-select.js}"></script>
 <script th:src="@{/assets/js/select/defaults-zh_CN.js}"></script>
+<link th:href="@{/assets/js/uploadify/uploadify.css}" rel="stylesheet" type="text/css">
+<script th:src="@{/assets/js/uploadify/jquery.uploadify.js}"></script>
 
 
 <body style="overflow-x: hidden">
@@ -116,8 +118,10 @@
         <label class="col-sm-4 control-label no-padding-right" for="userpic"> 用户头像: </label>
 
         <div class="col-sm-4">
-            <input type="text" name="userpic" id="userpic" class="form-control"
+            <input type="file" name="userpic" id="userpic" class="form-control"
                    th:value="${item.userpic}" placeholder="用户头像"/>
+
+            <div id="showUserpic"></div>
         </div>
     </div>
     <div class="form-group">
@@ -211,8 +215,8 @@
 </body>
 </html>
 <script th:inline="javascript">
-    var g_userid=[[${id}]];
-    var g_item=[[${item}]]
+    var g_userid = [[${id}]];
+    var g_item = [[${item}]]
     $(function () {
         //初始化form验证
         $('#validation-form').bootstrapValidator();
@@ -226,6 +230,12 @@
         initUserlevel();
         //3.省市
         initProvince();
+        //初始化上传头像按钮
+        $("#userpic").bootstrapUploadify({
+            showId: "showUserpic",//上传成功后在那边显示信息
+            fileType: "img"//需要上传的文件类型
+        });
+
     });
 
     function initSex() {
@@ -236,7 +246,7 @@
             data: data,
             valueField: 'value',
             textField: 'text',
-            defaultValue:g_item.sex
+            defaultValue: g_item.sex
         });
     }
 
@@ -251,7 +261,7 @@
             data: data,
             valueField: 'value',
             textField: 'text',
-            defaultValue:g_item.userlevel
+            defaultValue: g_item.userlevel
         });
     }
 
@@ -267,7 +277,7 @@
             data: provinceData,
             valueField: 'value',
             textField: 'text',
-            defaultValue:g_item.provinceid,
+            defaultValue: g_item.provinceid,
             onSelect: function (value) {
                 var cityData = cityDatas[value];
                 $("#cityid").bootstrapSelect({
@@ -291,9 +301,9 @@
         if ($("#validation-form").data('bootstrapValidator').isValid()) {//获取验证结果，如果成功，执行下面代码
             var param = turnArrayToJson($('form').serializeArray());
             if (g_userid) {
-                param.userid=g_userid
+                param.userid = g_userid
             }
-            $.post("/graindepot-user/user/edit",param, function (result) {
+            $.post("/graindepot-user/user/edit", param, function (result) {
                 parent.toSave(result)
             })
 

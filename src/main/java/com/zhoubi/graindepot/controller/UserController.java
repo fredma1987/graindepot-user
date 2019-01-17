@@ -43,33 +43,25 @@ public class UserController extends BaseController{
 
     @PostMapping("user/edit")
     public JsonResult userEdit(BaseUser baseUser) {
+        if (StringUtils.isNotEmpty(baseUser.getBirthdayStr())) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                baseUser.setBirthday(sdf.parse(baseUser.getBirthdayStr()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
         if (baseUser.getUserid()==0) {
             //新增
             baseUser.setRelpass(baseUser.getPassword());
             //默认密码123456
             String password = new BCryptPasswordEncoder(12).encode("123456");
             baseUser.setPassword(password);
-            if (StringUtils.isNotEmpty(baseUser.getBirthdayStr())) {
-                try {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    baseUser.setBirthday(sdf.parse(baseUser.getBirthdayStr()));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
             baseUser.setCreatetime(new Date());
             baseUserBiz.insert(baseUser);
             return new JsonResult("添加成功", true);
         }else {
             //修改
-            if (StringUtils.isNotEmpty(baseUser.getBirthdayStr())) {
-                try {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                    baseUser.setBirthday(sdf.parse(baseUser.getBirthdayStr()));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            }
             baseUser.setUpdatetime(new Date());
             baseUserBiz.updateUserInfo(baseUser);
             return new JsonResult("修改成功", true);

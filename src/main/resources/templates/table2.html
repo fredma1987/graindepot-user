@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="head::head(${title})">
+</head>
+<link th:href="@{/assets/css/select/bootstrap-select.min.css}" rel="stylesheet" media="screen">
+<script th:src="@{/assets/js/select/bootstrap-select.js}"></script>
+<script th:src="@{/assets/js/select/defaults-zh_CN.js}"></script>
+<link rel="stylesheet" th:href="@{/assets/css/comm/userinfo.css}"/>
+<body>
+<div class="userInfoDiv">
+    <div class="rightUserDiv">
+        <table  border="" cellspacing="" cellpadding="">
+            <tr>
+                <td class="infoTitle">登录名称</td>
+                <td class="infoShow">张小浩</td>
+                <td class="infoTitle">登录名称</td>
+                <td class="infoShow">张小浩</td>
+            </tr>
+            <tr>
+                <td class="infoTitle">登录密码</td>
+                <td class="infoShow" >666666</td>
+                <td class="infoTitle">登录密码</td>
+                <td class="infoShow">666666</td>
+            </tr>
+            <tr>
+                <td class="infoTitle">用户主键</td>
+                <td class="infoShow">主键</td>
+                <td class="infoTitle">用户主键</td>
+                <td class="infoShow">主键</td>
+            </tr>
+            <tr>
+                <td class="infoTitle">当前积分</td>
+                <td class="infoShow">123456</td>
+                <td class="infoTitle">当前积分</td>
+                <td class="infoShow">123456</td>
+            </tr>
+            <tr>
+                <td class="infoTitle">联系地址</td>
+                <td class="infoShow">无锡市梁溪区</td>
+                <td class="infoTitle">联系地址</td>
+                <td class="infoShow">无锡市梁溪区</td>
+            </tr>
+            <tr>
+                <td class="infoTitle">QQ号</td>
+                <td class="infoShow">666666666</td>
+                <td class="infoTitle">QQ号</td>
+                <td class="infoShow">666666666</td>
+            </tr>
+            <tr>
+                <td class="infoTitle">微信号</td>
+                <td class="infoShow">张小浩666</td>
+                <td class="infoTitle">微信号</td>
+                <td class="infoShow">张小浩666</td>
+            </tr>
+            <tr>
+                <td class="infoTitle">支付宝账号</td>
+                <td class="infoShow">18822222222</td>
+                <td class="infoTitle">支付宝账号</td>
+                <td class="infoShow">18822222222</td>
+            </tr>
+            <tr>
+                <td class="infoTitle">认证状态</td>
+                <td class="infoShow">已认证</td>
+                <td class="infoTitle">认证状态</td>
+                <td class="infoShow">已认证</td>
+            </tr>
+            <tr>
+                <td class="infoTitle">密码原文</td>
+                <td class="infoShow">123456</td>
+                <td class="infoTitle">密码原文</td>
+                <td class="infoShow">123456</td>
+            </tr>
+            <tr>
+                <td class="infoTitle">错误密码次数</td>
+                <td class="infoShow" colspan="3">0</td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>
+
+
+<script type="text/javascript">
+    var theTable;
+    function selectOnchang(o) {
+        //获取全部打钩的check的值
+        //$('#myTable th input:checkbox:checked')
+        console.log($('#myTable').bootstrapTable("getChecked"))
+    }
+    $(document).ready(function () {
+        $("#city").bootstrapSelect({
+            url: '/tableListPost',
+            type: 'POST',
+            valueField: 'id',
+            textField: 'username',
+            onSelect: function (value, item) {
+                $("#userid").bootstrapSelect({
+                    url: '/userById',
+                    type: 'GET',
+                    valueField: 'id',
+                    textField: 'username',
+                    param: {id: value}
+                });
+            }
+        });
+
+        query();
+
+    });
+
+
+    function query(param) {
+        theTable = $('#myTable').bootstrapTable({
+            //数据来源（包括处理分页，排序，过滤） ，即url，action，接口，等等
+            ajax: {
+                url: "/user/list/page",
+                data: param,
+                type: "GET"
+            },
+            columns: [
+                {data: "username"},
+                {data: "relname"},
+                {data: "sex"},
+                {data: "telphone"},
+                {
+                    data: "userid",
+                    render: function (data, type, row) {
+                        return '<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">' +
+                                '<a class="green" href="javascript:selectOnchang(' + data + ')">' +
+                                '<i class="icon-pencil bigger-130"></i>' +
+                                '</a>' +
+                                '</div>';
+
+                    }
+                }
+            ]
+        });
+    }
+
+    function searchTable() {
+        theTable.destroy();
+        query(getParam());
+    }
+    function reload() {
+
+    }
+    function getParam() {
+        var param = {};
+        param.username = $("#username").val();
+        return param
+    }
+
+    function rest() {
+        $("input").val("");
+        $("select").val("");
+        //触发change事件
+        $("select").trigger("change");
+        searchTable();
+        //$("#city").find("option[value = '"+"']").attr("selected","selected");//jq改变select的选中值
+
+    }
+
+
+    function toDetail(id) {
+        var value = $("#city").bootstrapSelect("getValue");
+        console.log(value);
+        alert(id)
+    }
+
+    function doDel() {
+        $.bootstrapBox.confirm.init({
+            message: "确认删除？",
+            callback: function (result) {
+                if (result) {
+                    $.bootstrapBox.alert.init({
+                        message: "删除成功"
+                    });
+                    $("#myTable").bootstrapTable("reload");
+                }
+
+            }
+        });
+
+    }
+
+    function toAdd() {
+        $.bootstrapBox.dialog.init({
+            title: "新增用户",
+            url: "/edit",
+            width: '800px',
+            height: '600px'
+        })
+    }
+
+
+    function toSave() {
+        $.bootstrapBox.dialog.close();
+        $.bootstrapBox.alert.init({
+            message: "保存成功"
+        });
+        $("#myTable").bootstrapTable("reload")
+    }
+
+</script>
