@@ -2,6 +2,7 @@ package com.zhoubi.graindepot.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.zhoubi.graindepot.base.JsonResult;
 import com.zhoubi.graindepot.bean.BaseUser;
 import com.zhoubi.graindepot.bean.UserBean;
 import com.zhoubi.graindepot.entity.User;
@@ -39,6 +40,12 @@ public class DemoController {
         session.setAttribute("test", "abc");
         UserBean user = (UserBean) session.getAttribute("currentUser");
         return "hello world user:" + session.getId() + "  " + JSON.toJSONString(user);
+    }
+
+    @GetMapping("test2")
+    @ResponseBody
+    public JsonResult test2(HttpSession session) {
+        return new JsonResult("AA","成功",true);
     }
 
     @GetMapping("list")
