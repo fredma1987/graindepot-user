@@ -1,0 +1,1 @@
+package com.zhoubi.graindepot.mapper;import com.zhoubi.graindepot.bean.BaseElement;import com.zhoubi.graindepot.base.BaseMapper;public interface BaseElementMapper extends BaseMapper<BaseElement> {}
