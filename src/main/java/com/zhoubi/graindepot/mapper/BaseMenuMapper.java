@@ -1,1 +1,1 @@
-package com.zhoubi.graindepot.mapper;import com.zhoubi.graindepot.base.BaseMapper;import com.zhoubi.graindepot.bean.BaseMenu;public interface BaseMenuMapper extends BaseMapper<BaseMenu> {}
+package com.zhoubi.graindepot.mapper;import com.zhoubi.graindepot.base.BaseMapper;import com.zhoubi.graindepot.bean.BaseMenu;import java.util.List;public interface BaseMenuMapper extends BaseMapper<BaseMenu> {    List<BaseMenu> selectAuthorityMenuByUserId(int id);}

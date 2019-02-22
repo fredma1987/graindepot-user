@@ -72,6 +72,7 @@ menu.select = function (layerTips) {
     }
 };
 menu.clickRow = function () {
+    $('#smallmenu').css("visibility","hidden");
     element.refresh();
 };
 menu.dblClickRow = function () {
@@ -85,9 +86,15 @@ menu.dblClickRow = function () {
  */
 menu.mousedown = function (e) {
     if(e.which==3){
-        menu.select();
+        var scrolltop=($(document).scrollTop());
+        var smallmenu = $('#smallmenu');
+        smallmenu.css("z-index","1000");
+        smallmenu.css("visibility","visible");
+        smallmenu.css("left",e.clientX+6+"px");
+        smallmenu.css("top",e.clientY+2+scrolltop+"px");
+        /*menu.select();
         var id = menu.currentItem.id;
-        toMenuAdd(id);
+        toMenuAdd(id);*/
     }
 };
 menu.refresh = function () {
@@ -101,7 +108,33 @@ window.onkeypress=function (e) {
         }
     }
 };
-
+function doAdd(){
+    $('#smallmenu').css("visibility","hidden");
+    var rows = menu.table.bootstrapTreeTable('getSelections');
+    var id = "-1";
+    if (rows.length == 1) {
+        id = rows[0].id;
+    }
+    toMenuAdd(id);
+}
+function doEdit(){
+    $('#smallmenu').css("visibility","hidden");
+    var rows = menu.table.bootstrapTreeTable('getSelections');
+    var id = "-1";
+    if (rows.length == 1) {
+        id = rows[0].id;
+    }
+    toMenuEdit(id);
+}
+function doDel(){
+    $('#smallmenu').css("visibility","hidden");
+    var rows = menu.table.bootstrapTreeTable('getSelections');
+    var id = "-1";
+    if (rows.length == 1) {
+        id = rows[0].id;
+    }
+    toMenuDel(id);
+}
 layui.use(['form', 'layedit', 'laydate'], function () {
     menu.init();
     $('#' + menu.tableId + '>.treegrid-tbody>tr').click(function () {

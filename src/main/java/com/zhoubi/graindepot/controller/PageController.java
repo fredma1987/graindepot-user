@@ -1,5 +1,6 @@
 package com.zhoubi.graindepot.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.zhoubi.graindepot.bean.BaseElement;
 import com.zhoubi.graindepot.bean.BaseMenu;
 import com.zhoubi.graindepot.bean.BaseUser;
@@ -7,12 +8,15 @@ import com.zhoubi.graindepot.bean.UserBean;
 import com.zhoubi.graindepot.biz.BaseElementBiz;
 import com.zhoubi.graindepot.biz.BaseMenuBiz;
 import com.zhoubi.graindepot.biz.BaseUserBiz;
+import com.zhoubi.graindepot.entity.MenuTree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * Created by zhanghao on 2019/1/9.
@@ -62,6 +66,8 @@ public class PageController extends BaseController {
 
     @GetMapping("/menu")
     public String toMenu(Model model) {
+        //获取菜单模块
+        BaseUser baseUser = getCurrentUser();
         String title = "菜单列表";
         model.addAttribute("title", title);
         String path = "/menu/list";

@@ -4,7 +4,9 @@ import com.zhoubi.graindepot.base.JsonResult;
 import com.zhoubi.graindepot.base.PagerModel;
 import com.zhoubi.graindepot.bean.BaseUser;
 import com.zhoubi.graindepot.bean.UserBean;
+import com.zhoubi.graindepot.biz.BaseMenuBiz;
 import com.zhoubi.graindepot.biz.BaseUserBiz;
+import com.zhoubi.graindepot.entity.MenuTree;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,6 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -26,6 +29,8 @@ import java.util.Map;
 public class UserController extends BaseController{
     @Autowired
     private BaseUserBiz baseUserBiz;
+    @Autowired
+    private BaseMenuBiz baseMenuBiz;
 
     @GetMapping("user/list/page")
     public PagerModel userPageList(int start, int length, String username) {
@@ -78,6 +83,12 @@ public class UserController extends BaseController{
         }
 
         return new JsonResult("删除成功", true);
+    }
+    @PostMapping("user/menuTree")
+    public JsonResult menuTree(String ids) {
+        BaseUser baseUser = getCurrentUser();
+        List<MenuTree> menuTrees = baseMenuBiz.getMenusByUserId(baseUser.getUserid(), -1);
+        return new JsonResult(menuTrees, true);
     }
 
 

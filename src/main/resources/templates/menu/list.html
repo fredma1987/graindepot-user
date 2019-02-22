@@ -8,7 +8,37 @@
 <link rel="stylesheet" th:href="@{/ag/css/global.css}" media="all">
 <link rel="stylesheet" th:href="@{/ag/plugins/font-awesome/css/font-awesome.min.css}">
 <link th:href="@{/ag/plugins/jquery-treegrid/css/jquery.treegrid.css}" rel="stylesheet"/>
+<style>
+    .skin {
+        width : 100px;
+        border : 1px solid gray;
+        padding : 6px;
+        visibility : hidden;
+        position : absolute;
+        background-color : #009688;
+    }
+    div.menuitems {
+        margin : 1px 0;
+    }
+    div.menuitems a {
+        text-decoration : none;
+    }
+    div.menuitems:hover {
+        background-color : #c0c0c0;
+    }
+</style>
 <div th:replace="navbar::navbar"></div>
+<div id="smallmenu" class="skin">
+    <div class="menuitems">
+        <a href="javascript:doEdit();">编辑该菜单</a>
+    </div>
+    <div class="menuitems">
+        <a href="javascript:doAdd();">增加子菜单</a>
+    </div>
+    <div class="menuitems">
+        <a href="javascript:doDel();">删除该菜单</a>
+    </div>
+</div>
 <div class="admin-main">
     <form  class="layui-form layui-form-pane" onsubmit="return false;">
         <div class="layui-form-item" style="margin-bottom:0px;">
