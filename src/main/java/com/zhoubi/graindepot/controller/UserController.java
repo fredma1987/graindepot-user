@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
@@ -43,6 +44,11 @@ public class UserController extends BaseController{
             e.putWhere("username", "%" + username + "%");
         }
         PagerModel<BaseUser> result = baseUserBiz.selectListByPage(e);
+        return result;
+    }
+    @GetMapping("user/list")
+    public List<BaseUser> userList(@RequestParam Map param) {
+        List<BaseUser> result=baseUserBiz.selectList(param);
         return result;
     }
 

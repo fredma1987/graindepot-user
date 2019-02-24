@@ -1,1 +1,1 @@
-package com.zhoubi.graindepot.mapper;import com.zhoubi.graindepot.bean.BaseUser;import com.zhoubi.graindepot.base.BaseMapper;public interface BaseUserMapper extends BaseMapper<BaseUser> {    int updateUserInfo(BaseUser item);}
+package com.zhoubi.graindepot.mapper;import com.zhoubi.graindepot.bean.BaseUser;import com.zhoubi.graindepot.base.BaseMapper;import java.util.List;import java.util.Map;public interface BaseUserMapper extends BaseMapper<BaseUser> {    int updateUserInfo(BaseUser item);    List<BaseUser> selectAllMemberByGroupId(Map param);}

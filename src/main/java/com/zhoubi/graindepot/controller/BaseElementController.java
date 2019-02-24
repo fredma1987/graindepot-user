@@ -7,14 +7,14 @@ import com.zhoubi.graindepot.bean.BaseMenu;
 import com.zhoubi.graindepot.bean.BaseUser;
 import com.zhoubi.graindepot.biz.BaseElementBiz;
 import com.zhoubi.graindepot.biz.BaseMenuBiz;
+import com.zhoubi.graindepot.msg.ObjectRestResponse;
+import com.zhoubi.graindepot.msg.TableResultResponse;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +39,26 @@ public class BaseElementController extends BaseController {
         }
         PagerModel<BaseElement> result = baseElementBiz.selectListByPage(e);
         return result;
+    }
+    @GetMapping(value = "element/pageByUser")
+    @ResponseBody
+    public TableResultResponse<BaseElement> pageByUser(@RequestParam(defaultValue = "10") int limit,
+                                                   @RequestParam(defaultValue = "1") int offset, String name, @RequestParam(defaultValue = "0") int menuid) {
+        BaseUser user = getCurrentUser();
+        List<BaseElement> elements = new ArrayList<BaseElement>();
+        PagerModel<BaseElement> e = new PagerModel();
+        int start =limit*(offset-1);
+        e.setStart(start);
+        e.setLength(limit);
+        if (StringUtils.isNotEmpty(name)) {
+            e.putWhere("name", "%" + name + "%");
+        }
+        if(menuid!=0){
+            e.putWhere("menuid", menuid);
+        }
+        PagerModel<BaseElement> result = baseElementBiz.selectListByPage(e);
+        elements=result.getData();
+        return new TableResultResponse<BaseElement>(elements.size(), elements);
     }
     @GetMapping("element/list")
     public List<BaseElement> elementList() {
@@ -69,5 +89,15 @@ public class BaseElementController extends BaseController {
         }
 
         return new JsonResult("删除成功", true);
+    }
+    @RequestMapping(value = "element/{ugroupid}/authority/element", method = RequestMethod.GET)
+    @ResponseBody
+    public ObjectRestResponse<List<Integer>> getlementAuthority(@PathVariable int ugroupid) {
+        Map m =new HashMap();
+        m.put("ugroupid",ugroupid);
+        m.put("authoritytype","ugroup");
+        m.put("resourcetype","button");
+        List<Integer> result=baseElementBiz.getAuthorityElement(m);
+        return new ObjectRestResponse().result(result).rel(true);
     }
 }
