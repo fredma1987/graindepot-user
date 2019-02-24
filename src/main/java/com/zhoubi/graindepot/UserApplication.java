@@ -16,7 +16,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableDiscoveryClient
 @EnableFeignClients
 @MapperScan(value = "com.zhoubi.graindepot.mapper")
-@EnableRedisHttpSession(redisFlushMode = RedisFlushMode.IMMEDIATE)
+@EnableRedisHttpSession(redisFlushMode = RedisFlushMode.IMMEDIATE,maxInactiveIntervalInSeconds=4*60*60)
 public class UserApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(UserApplication.class,args);

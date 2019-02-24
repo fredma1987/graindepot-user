@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="head::head(${title})">
+    <!--<link rel="stylesheet" href="plugins/select2/css/select2.css" media="all">
+    <link rel="stylesheet" href="plugins/bootstrap-treeview/css/bootstrap-treeview.min.css" media="all">-->
+</head>
+<body>
+
+<link rel="stylesheet" th:href="@{/ag/plugins/bootstrap-table/css/bootstrap-table.min.css}"/>
+<link rel="stylesheet" th:href="@{/ag/css/layui.css}" media="all"/>
+<link rel="stylesheet" th:href="@{/ag/css/global.css}" media="all">
+<link rel="stylesheet" th:href="@{/ag/plugins/font-awesome/css/font-awesome.min.css}">
+<link th:href="@{/ag/plugins/jquery-treegrid/css/jquery.treegrid.css}" rel="stylesheet"/>
+<style>
+    .skin {
+        width : 100px;
+        border : 1px solid gray;
+        padding : 6px;
+        visibility : hidden;
+        position : absolute;
+        background-color : #009688;
+    }
+    div.menuitems {
+        margin : 1px 0;
+    }
+    div.menuitems a {
+        text-decoration : none;
+    }
+    div.menuitems:hover {
+        background-color : #c0c0c0;
+    }
+</style>
+<div th:replace="navbar::navbar"></div>
+<div id="smallmenu" class="skin">
+    <div class="menuitems">
+        <a href="javascript:doEdit();">编辑该用户组</a>
+    </div>
+    <div class="menuitems">
+        <a href="javascript:doAdd();">增加子用户组</a>
+    </div>
+    <div class="menuitems">
+        <a href="javascript:doDel();">删除该用户组</a>
+    </div>
+</div>
+<div class="layui-tab layui-tab-brief" lay-filter="ugrouptype">
+    <ul class="layui-tab-title" id="ugrouptypetab">
+
+    </ul>
+    <div class="layui-tab-content"></div>
+</div>
+<div class="admin-main">
+    <form class="layui-form layui-form-pane" onsubmit="return false;">
+        <div class="layui-form-item" style="margin-bottom:0px;">
+            <label class="layui-form-label">名称</label>
+
+            <div class="layui-input-inline">
+                <input type="text"  class="layui-input" id="ugroupname">
+            </div>
+            <button type="button" id="btn_query" class="layui-btn layui-btn">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+        </div>
+    </form>
+    <div id="toolbar" class="layui-btn-group">
+        <button class="layui-btn layui-btn-small" id="btn_add">
+            <i class="layui-icon">&#xe654;</i>
+        </button>
+        <button class="layui-btn layui-btn-small" id="btn_edit">
+            <i class="layui-icon">&#xe642;</i>
+        </button>
+        <button class="layui-btn layui-btn-small" id="btn_del">
+            <i class="layui-icon">&#xe640;</i>
+        </button>
+        <button class="layui-btn layui-btn-small" id="btn_userManager">
+            <i class="fa fa-user"></i>
+        </button>
+        <button class="layui-btn layui-btn-small" id="btn_resourceManager">
+            <i class="fa fa-lock"></i>
+        </button>
+    </div>
+    <table id="grouptable">
+
+    </table>
+
+</div>
+
+<script type="text/javascript" th:src="@{/ag/plugins/jquery-treegrid/js/jquery.treegrid.min.js}"></script>
+<script type="text/javascript" th:src="@{/ag/plugins/jquery-treegrid/js/jquery.treegrid.bootstrap3.js}"></script>
+<script type="text/javascript" th:src="@{/ag/plugins/jquery-treegrid/extension/jquery.treegrid.extension.js}"></script>
+<script type="text/javascript" th:src="@{/ag/plugins/bootstrap-treeview/js/bootstrap-treeview.min.js}"></script>
+<script type="text/javascript" th:src="@{/ag/layui.js}"></script>
+<script type="text/javascript" th:src="@{/ag/common/util.js}"></script>
+<script type="text/javascript" th:src="@{/graindepot-user/ugroup/group.js}"></script>
+<script type="text/javascript" th:src="@{/graindepot-user/ugroup/element.js}"></script>
+</body>
+
+</html>

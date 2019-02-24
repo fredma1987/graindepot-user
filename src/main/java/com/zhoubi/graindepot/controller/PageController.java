@@ -1,12 +1,10 @@
 package com.zhoubi.graindepot.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.zhoubi.graindepot.bean.BaseElement;
-import com.zhoubi.graindepot.bean.BaseMenu;
-import com.zhoubi.graindepot.bean.BaseUser;
-import com.zhoubi.graindepot.bean.UserBean;
+import com.zhoubi.graindepot.bean.*;
 import com.zhoubi.graindepot.biz.BaseElementBiz;
 import com.zhoubi.graindepot.biz.BaseMenuBiz;
+import com.zhoubi.graindepot.biz.BaseUgroupBiz;
 import com.zhoubi.graindepot.biz.BaseUserBiz;
 import com.zhoubi.graindepot.entity.MenuTree;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +28,8 @@ public class PageController extends BaseController {
     private BaseMenuBiz baseMenuBiz;
     @Autowired
     private BaseElementBiz baseElementBiz;
+    @Autowired
+    private BaseUgroupBiz baseUgroupBiz;
 
     @GetMapping("/user")
     public String toUser(Model model) {
@@ -141,6 +141,58 @@ public class PageController extends BaseController {
             model.addAttribute("menuid", menuid);
             return "/element/add";
         }
+    }
+    @GetMapping("/ugroup")
+    public String toUgroup(Model model) {
+        //获取菜单模块
+        String title = "用户组列表";
+        model.addAttribute("title", title);
+        String path = "/ugroup/list";
+        return path;
+    }
+
+    @GetMapping("/ugroup/detail/{id}")
+    public String toUgroupDetail(Model model, @PathVariable int id) {
+        String title = "用户组详情";
+        BaseUgroup baseugroup = baseUgroupBiz.selectById(id);
+        model.addAttribute("title", title);
+        model.addAttribute("item", baseugroup);
+        String path = "/ugroup/detail";
+        return path;
+    }
+
+    @GetMapping("/ugroup/edit")
+    public String toUgroupEdit(Model model, Integer id,Integer parentid) {
+        String title = "编辑用户组";
+        BaseUgroup baseugroup = new BaseUgroup();
+        if (id != null) {
+            baseugroup = baseUgroupBiz.selectById(id);
+        }
+        if(parentid!=null){
+            model.addAttribute("parentid", parentid);
+            return "/ugroup/add";
+        }
+        model.addAttribute("title", title);
+        model.addAttribute("item", baseugroup);
+        model.addAttribute("id", id);
+        String path = "/ugroup/edit";
+        return path;
+    }
+    @GetMapping("/ugroup/user")
+    public String toUserEdit(Model model,Integer ugroupid) {
+        String title = "添加用户";
+        model.addAttribute("title", title);
+        model.addAttribute("ugroupid", ugroupid);
+        String path = "/ugroup/user";
+        return path;
+    }
+    @GetMapping("/ugroup/authority")
+    public String toAuthority(Model model,Integer ugroupid) {
+        String title = "权限分配";
+        model.addAttribute("title", title);
+        model.addAttribute("ugroupid", ugroupid);
+        String path = "/ugroup/authority";
+        return path;
     }
 
 }
