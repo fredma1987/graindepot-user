@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:include="head::head(${title})">
 </head>
-<body oncontextmenu=self.event.returnValue=false>
+<body oncontextmenu = "return false">
 <link rel="stylesheet" th:href="@{/ag/plugins/bootstrap-table/css/bootstrap-table.min.css}"/>
 <link rel="stylesheet" th:href="@{/ag/css/layui.css}" media="all"/>
 <link rel="stylesheet" th:href="@{/ag/css/global.css}" media="all">
@@ -18,7 +18,7 @@
         background-color : #009688;
     }
     div.menuitems {
-        margin : 1px 0;
+        margin : 4px 0;
     }
     div.menuitems a {
         text-decoration : none;
