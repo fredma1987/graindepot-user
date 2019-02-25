@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title th:text="title"></title>
 </head>
-<link rel="stylesheet" type="text/css" th:href="@{/graindepot-user/js/jquery-easyui-1.4.5/themes/blue/easyui.css}"/>
+<link rel="stylesheet" type="text/css" th:href="@{/graindepot-user/js/jquery-easyui-1.4.5/themes/bootstrap/easyui.css}"/>
 <link rel="stylesheet" type="text/css" th:href="@{/graindepot-user/js/jquery-easyui-1.4.5/themes/icon.css}"/>
 <script type="text/javascript" th:src="@{/graindepot-user/js/jquery-easyui-1.4.5/jquery-1.8.0.min.js}"></script>
 <script type="text/javascript" th:src="@{/graindepot-user/js/jquery-easyui-1.4.5/jquery.easyui.min.js}"></script>
@@ -98,7 +98,7 @@
     function queryLeft(data) {
         $('#dg').datagrid({
             title: "已选择用户(红色代表未保存数据)",
-            iconCls: 'icon-chart_curve',
+            iconCls: 'icon-man',
             nowrap: true,
             autoRowHeight: false,
             striped: true,
@@ -231,7 +231,7 @@
     function queryRight(data) {
         $('#dg2').datagrid({
             title: "未选择用户(红色代表未保存数据)",
-            iconCls: 'icon-chart_curve',
+            iconCls: 'icon-man',
             nowrap: true,
             autoRowHeight: false,
             striped: true,
