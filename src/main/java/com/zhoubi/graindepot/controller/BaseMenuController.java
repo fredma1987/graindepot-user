@@ -42,6 +42,9 @@ public class BaseMenuController extends BaseController {
             return new JsonResult("添加成功", true);
         }else {
             //修改
+            if(basemenu.getParentid()==null){
+                basemenu.setParentid(-1);//如果不选择上级菜单，则默认是根菜单
+            }
             baseMenuBiz.update(basemenu);
             return new JsonResult("修改成功", true);
         }
