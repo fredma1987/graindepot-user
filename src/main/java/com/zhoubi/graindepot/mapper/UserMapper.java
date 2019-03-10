@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * Created by Administrator on 2018-12-5.
  */
-public interface UserMapper {
+public interface UserMapper{
     List listUser();
 
     // UserBean selectOneByMap(Map map);
