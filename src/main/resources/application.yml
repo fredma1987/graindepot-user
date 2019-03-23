@@ -3,5 +3,5 @@ spring:
         name: graindepot-user
 
 server:
-    port: 8002 #启动端口
+    port: 8802 #启动端口
 
