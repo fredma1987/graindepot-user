@@ -63,6 +63,14 @@ public class PageController extends BaseController {
         String path = "/user/edit";
         return path;
     }
+    @GetMapping("/user/toUpdatePassword")
+    public String toUpdatePassword(Model model) {
+        BaseUser user=getCurrentUser();
+        String title = "修改密码";
+        model.addAttribute("id", user.getUserid());
+        String path = "/user/updatepassword";
+        return path;
+    }
 
     @GetMapping("/menu")
     public String toMenu(Model model) {

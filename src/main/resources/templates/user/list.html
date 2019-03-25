@@ -173,7 +173,12 @@
                                 '>' +
                                 '<i class="icon-eye-open bigger-130"></i>' +
                                 '</a>' +
-                                '</div>';
+                                '<a class="green" href="javascript:resetPassword(' + data + ')"' +
+                                ' title="重置密码为123456" ' +
+                                '>'+
+                                '<i class="icon-lock bigger-130"></i>' +
+                                '</a>' +
+                                 '</div>';
 
                     }
                 }
@@ -269,4 +274,11 @@
         $("#myTable").bootstrapTable("reload")
     }
 
+    function resetPassword(userid){
+        var param={};
+        param.userid = userid;
+        $.post("/graindepot-user/user/resetPassword", param, function (result) {
+            toSave(result);
+        })
+    }
 </script>

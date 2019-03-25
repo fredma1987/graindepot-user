@@ -216,7 +216,7 @@
 </html>
 <script th:inline="javascript">
     var g_userid = [[${id}]];
-    var g_item = [[${item}]]
+    var g_item = [[${item}]];
     $(function () {
         //初始化form验证
         $('#validation-form').bootstrapValidator();
@@ -229,7 +229,6 @@
         //2.用户级别
         initUserlevel();
         //3.省市
-        //initProvince();
         comm_initProvince();
         //初始化上传头像按钮
         $("#userpic").bootstrapUploadify({
@@ -263,32 +262,6 @@
             valueField: 'value',
             textField: 'text',
             defaultValue: g_item.userlevel
-        });
-    }
-
-    function initProvince() {
-        var provinceData = [{value: 1, text: "江苏省"}, {value: 2, text: "湖南省"}];
-        var cityDatas = {
-            1: [{value: 1, text: "无锡市"}, {value: 2, text: "苏州市"}],
-            2: [{value: 3, text: "长沙市"}, {value: 4, text: "怀化市"}]
-        };
-        $("#provinceid").bootstrapSelect({
-            //url: '/tableListPost',
-            // type: 'POST',
-            data: provinceData,
-            valueField: 'value',
-            textField: 'text',
-            defaultValue: g_item.provinceid,
-            onSelect: function (value) {
-                var cityData = cityDatas[value];
-                $("#cityid").bootstrapSelect({
-                    //url: '/tableListPost',
-                    // type: 'POST',
-                    data: cityData,
-                    valueField: 'value',
-                    textField: 'text'
-                });
-            }
         });
     }
 

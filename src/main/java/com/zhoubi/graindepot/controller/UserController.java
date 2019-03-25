@@ -6,6 +6,7 @@ import com.zhoubi.graindepot.bean.BaseUser;
 import com.zhoubi.graindepot.bean.UserBean;
 import com.zhoubi.graindepot.biz.BaseMenuBiz;
 import com.zhoubi.graindepot.biz.BaseUserBiz;
+import com.zhoubi.graindepot.constant.UserConstant;
 import com.zhoubi.graindepot.entity.MenuTree;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,7 +67,7 @@ public class UserController extends BaseController{
             //新增
             baseUser.setRelpass(baseUser.getPassword());
             //默认密码123456
-            String password = new BCryptPasswordEncoder(12).encode("123456");
+            String password = new BCryptPasswordEncoder(UserConstant.PW_ENCORDER_SALT).encode("123456");
             baseUser.setPassword(password);
             baseUser.setCreatetime(new Date());
             baseUserBiz.insert(baseUser);
@@ -77,6 +78,30 @@ public class UserController extends BaseController{
             baseUserBiz.updateUserInfo(baseUser);
             return new JsonResult("修改成功", true);
         }
+
+    }
+    @PostMapping("user/resetPassword")
+    public JsonResult resetPassword(BaseUser baseUser) {
+            BaseUser user=baseUserBiz.selectById(baseUser.getUserid());
+            user.setRelpass("123456");
+            //默认密码123456
+            String password = new BCryptPasswordEncoder(UserConstant.PW_ENCORDER_SALT).encode("123456");
+            user.setPassword(password);
+            baseUserBiz.update(user);
+            return new JsonResult("密码已重置", true);
+
+    }
+    @PostMapping("user/updatePassword")
+    public JsonResult updatePassword(String oldpwd, String newpwd) {
+        BaseUser currentUser=getCurrentUser();
+        BaseUser user=baseUserBiz.selectById(currentUser.getUserid());
+        if (!new BCryptPasswordEncoder(UserConstant.PW_ENCORDER_SALT).matches(oldpwd, user.getPassword()))
+            return new JsonResult("原密码输入不正确", true);
+        user.setRelpass(newpwd);
+        String password = new BCryptPasswordEncoder(UserConstant.PW_ENCORDER_SALT).encode(newpwd);
+        user.setPassword(password);
+        baseUserBiz.update(user);
+        return new JsonResult("密码已重置", true);
 
     }
 
